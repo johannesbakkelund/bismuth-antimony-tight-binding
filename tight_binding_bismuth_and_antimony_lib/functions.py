@@ -13,7 +13,7 @@ import matplotlib.colors as mcol
 
 class ModelCrystal:
 
-    def __init__(self, atom_types, prefix, kwargs=None):
+    def __init__(self, atom_types, prefix, parent_folder, kwargs=None):
         """
         Defines a Bi, Sb or BiSb (surface_normal e.g. 112 or 111)-slab that is produced by repeating the Liu-Allen geometry (lattice_const_a/c) of 4 atoms n_layers times
         in the z-direction and n_extend_x/y in the x/y-directions. n_layers should be an even number because of how get_edge_participation is
@@ -38,26 +38,24 @@ class ModelCrystal:
         # Class definition parameters
         self.atom_types = atom_types
         self.prefix= prefix
+        self.parent_folder = parent_folder
 
         # Choose working directory and crystal geometry.
-        # Either Bi or Sb (Liu-Allen paper), BiSb not implemented (uses Bi as standard)
+        # Either Bi or Sb (Liu-Allen paper), BiSb uses same as Bi
         match self.atom_types:
             case "Bi":
-                self.parent_folder = "/home/jdawg/Documents/physics_projects/bismuth_antimony_project/tight_binding/bismuth/working_text_files/"
                 self.lattice_const_a = 4.5332
                 self.lattice_const_c = 11.7967
                 self.internal_distance = 0.2341
                 self.nearest_neighbor_d = 3.0624
                 self.next_nearest_neighbor_d = 3.5120
             case "Sb":
-                self.parent_folder = "/home/jdawg/Documents/physics_projects/bismuth_antimony_project/tight_binding/antimony/working_text_files/"
                 self.lattice_const_a = 4.3007
                 self.lattice_const_c = 11.2221
                 self.internal_distance = 0.2336
                 self.nearest_neighbor_d = 2.902
                 self.next_nearest_neighbor_d = 3.343
             case "BiSb":
-                self.parent_folder = "/home/jdawg/Documents/physics_projects/bismuth_antimony_project/tight_binding/bismuth_antimony_alloys/working_text_files/"
                 self.lattice_const_a = 4.5332
                 self.lattice_const_c = 11.7967
                 self.internal_distance = 0.2341
@@ -1981,7 +1979,7 @@ class ModelCrystal:
 class ModelSlab(ModelCrystal):
 
     def __init__(self, crystal_c_v1, crystal_c_v2, n_layers, n_extend_x, n_extend_y, n_atoms_removed, atom_types,
-                 slab_type, prefix, kwargs=None):
+                 slab_type, prefix, parent_folder, kwargs=None):
         """
         Defines a Bi, Sb or BiSb (surface_normal e.g. 112 or 111)-slab that is produced by repeating the Liu-Allen geometry (lattice_const_a/c) of 4 atoms n_layers times
         in the z-direction and n_extend_x/y in the x/y-directions. n_layers should be an even number because of how get_edge_participation is
@@ -2003,7 +2001,7 @@ class ModelSlab(ModelCrystal):
         #############################################################################
 
         # Class definition parameters
-        super().__init__(atom_types, prefix)
+        super().__init__(atom_types, prefix, parent_folder)
         self.n_layers = n_layers
         self.n_extend_x = n_extend_x
         self.n_extend_y = n_extend_y
@@ -3198,7 +3196,7 @@ class ModelSlab(ModelCrystal):
 
 class ModelBulk(ModelCrystal):
 
-    def __init__(self, prefix, atom_types, n_extend, kwargs=None):
+    def __init__(self, prefix, atom_types, n_extend, parent_folder, kwargs=None):
         """
         Defines a Bi, Sb or BiSb (surface_normal e.g. 112 or 111)-slab that is produced by repeating the Liu-Allen geometry (lattice_const_a/c) of 4 atoms n_layers times
         in the z-direction and n_extend_x/y in the x/y-directions. n_layers should be an even number because of how get_edge_participation is
@@ -3220,7 +3218,7 @@ class ModelBulk(ModelCrystal):
         #############################################################################
 
         # Class definition parameters
-        super().__init__(atom_types, prefix)
+        super().__init__(atom_types, prefix, parent_folder)
         self.n_extend = n_extend
 
         # Total number of atoms in the unit cell
