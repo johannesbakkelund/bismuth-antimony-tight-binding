@@ -1,0 +1,18 @@
+GENERAL INSTRUCTIONS ON INSTALLATION:
+
+0) Clone git repository:
+	git clone https://github.com/johannesbakkelund/bismuth-antimony-tight-binding/
+
+1) Install requirements:
+	pip install numpy pandas scipy joblib matplotlib
+	
+2) Open download folder:
+	cd bismuth-antimony-tight-binding
+	
+3) Install the package:
+	pip install numpy pandas scipy joblib matplotlib
+	
+4) Create subfolders in the directory where you will run the package (parent folder):
+	mkdir atom_types eigenvalues hopping_matrix k_points xsf edge_participation
+	
+5) Copy the folder "atom_positions" to the same directory, it contains atom position information
